@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 64px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #e5e7eb;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.logoSvg {
+  display: block;
+  width: 136px;
+  height: 15px;
+}
+
+
+.nav {
+  display: flex;
+  gap: 32px;
+  margin: 0 auto;
+}
+
+.navLink {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #000;
+}
+
+.navLink.active {
+  color: #E44848;
+}
+
+.navLink:hover {
+  color: #D84343;
+}

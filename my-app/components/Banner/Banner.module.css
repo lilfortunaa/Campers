@@ -1,0 +1,59 @@
+.banner {
+  position: relative;
+  padding: 5rem 0; 
+  color: white;
+  text-align: center;
+  background-image: url('../Details/../../public/images/bg-desktop@1x.png');
+  background-size: cover;
+  background-position: center;
+  aspect-ratio: 1440 / 696;
+
+  display: flex;           /* включаем flex для центрирования */
+  align-items: center;     /* вертикально по центру */
+  justify-content: flex-start; /* горизонтально слева */
+  padding-left: 64px;      /* смещение контента вправо от края */
+  color: white;
+  text-align: left;
+}
+
+.bannerOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* полупрозрачный оверлей */
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 10;
+}
+
+.bannerTitle {
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 67%;
+    margin-bottom: 16px;
+}
+
+.bannerText {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 133%;
+    margin-bottom: 40px;
+}
+
+.bannerButton {
+    border-radius: 200px;
+    padding: 16px 60px;
+    width: 173px;
+    height: 56px;
+    background-color: #E44848;
+    color: #fff; 
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.01em;
+}
+
+.bannerButton:hover {
+  background-color: #D84343;;
+}
