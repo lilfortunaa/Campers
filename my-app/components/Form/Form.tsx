@@ -1,11 +1,18 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
+import styles from './Form.module.css';
 
-export default function Form({ camperId }: { camperId: string }) {
+interface FormProps {
+  camperId: string;
+}
+
+export default function Form({ camperId }: FormProps) {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState('');
 
@@ -15,65 +22,89 @@ export default function Form({ camperId }: { camperId: string }) {
     setMsg('');
 
     try {
-      // Пока бекенд бронирований mockapi не поддерживает, но структура запроса правильная
       await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/bookings`, {
         camperId,
         name,
+        email,
         from,
         to,
+        comment,
       });
 
-      setMsg('Бронювання успішне!');
-      // Очистка формы
+      setMsg('Booking successful!');
       setName('');
+      setEmail('');
       setFrom('');
       setTo('');
+      setComment('');
     } catch (err) {
       console.error(err);
-      setMsg('Помилка бронювання.');
+      setMsg('Error booking.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={submit} className="space-y-2">
-      <input
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder="Ваше ім'я"
-        className="w-full border px-2 py-1"
-        required
-      />
+    <div className={styles.formContainer}>
+      <h2 className={styles.formTitle}>Book your campervan now</h2>
+      <p className={styles.formSubtitle}>
+        Stay connected! We are always ready to help you.
+      </p>
 
-      <div className="flex gap-2">
+      <form onSubmit={submit} className={styles.form}>
         <input
-          type="date"
-          value={from}
-          onChange={e => setFrom(e.target.value)}
-          className="border px-2 py-1"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="Name*"
+          className={styles.input}
           required
         />
+
         <input
-          type="date"
-          value={to}
-          onChange={e => setTo(e.target.value)}
-          className="border px-2 py-1"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email*"
+          className={styles.input}
           required
         />
-      </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className={`w-full px-3 py-1 rounded text-white ${
-          loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'
-        }`}
-      >
-        {loading ? 'Відправка...' : 'Забронювати'}
-      </button>
+        <div className={styles.dateWrapper}>
+          <input
+            type="date"
+            value={from}
+            onChange={e => setFrom(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <input
+            type="date"
+            value={to}
+            onChange={e => setTo(e.target.value)}
+            className={styles.input}
+            required
+          />
+        </div>
 
-      {msg && <p className="text-sm mt-2">{msg}</p>}
-    </form>
+        <textarea
+          value={comment}
+          onChange={e => setComment(e.target.value)}
+          placeholder="Comment"
+          className={styles.textarea}
+          rows={4}
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={styles.button}
+        >
+          {loading ? 'Sending...' : 'Send'}
+        </button>
+
+        {msg && <p className={styles.message}>{msg}</p>}
+      </form>
+    </div>
   );
 }

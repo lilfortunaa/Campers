@@ -1,0 +1,32 @@
+.details {
+  display: block;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 120%;
+  margin-bottom: 16px;
+  color: #000;
+}
+
+.list {
+  display: grid;
+  gap: 16px 24px;
+}
+
+.item {
+  font-size: 14px;
+  color: #101828;
+  display: flex;
+  gap: 6px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.value {
+  font-weight: 400;
+  color: #475467;
+}

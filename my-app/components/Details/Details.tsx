@@ -1,5 +1,6 @@
 'use client';
 import { Camper } from '@/types/camper';
+import styles from './Details.module.css';
 
 export default function Details({ camper }: { camper: Camper }) {
   const details: [string, string | number | undefined][] = [
@@ -12,14 +13,16 @@ export default function Details({ camper }: { camper: Camper }) {
   ];
 
   return (
-    <div className="mt-4">
-      <h4 className="font-semibold mb-2">Details</h4>
-      <ul className="space-y-1">
+    <div className={styles.details}>
+      <h3 className={styles.title}>Vehicle details</h3>
+
+      <ul className={styles.list}>
         {details
           .filter(([, v]) => v !== undefined && v !== null)
           .map(([k, v]) => (
-            <li key={k} className="text-sm">
-              <strong>{k}:</strong> {v}
+            <li key={k} className={styles.item}>
+              <strong className={styles.label}>{k}:</strong>
+              <span className={styles.value}>{v}</span>
             </li>
           ))}
       </ul>

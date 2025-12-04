@@ -65,7 +65,7 @@ export default function CamperCard({ camper }: Props) {
         <div className={styles.header}>
           <h3 className={styles.title}>{camper.name}</h3>
           <div className={styles['header-right']}>
-            <p className={styles.price}>{camper.price.toFixed(2)} ₴</p>
+            <p className={styles.price}>{camper.price.toFixed(2)} €</p>
             <button
               className={`${styles.favButton}`}
               onClick={() => toggle(camper)}

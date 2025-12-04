@@ -2,18 +2,21 @@
 
 import { Camper } from '@/types/camper';
 import Image from 'next/image';
+import styles from './Gallery.module.css';
 
 export default function Gallery({ camper }: { camper: Camper }) {
   if (!camper.gallery?.length) return null;
 
   return (
-    <div className="grid grid-cols-3 gap-2">
-      {camper.gallery.map((img) => (
+    <div className={styles.grid}>
+      {camper.gallery.slice(0, 4).map((img) => (
         <Image
           key={img.original}
-          src={img.thumb}
+          src={img.original}
           alt={camper.name}
-          className="w-full h-32 object-cover rounded"
+          width={400}
+          height={260}
+          className={styles.image}
         />
       ))}
     </div>
