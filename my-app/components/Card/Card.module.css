@@ -1,0 +1,195 @@
+.card {
+  width: 888px;
+  height: 368px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  background-color: #fff;
+  padding: 24px;
+  box-sizing: border-box;
+  margin-top: 32px;
+}
+
+.card:first-child {
+  margin-top: 48px;
+}
+
+/* Чтобы между карточками был 32px */
+.card + .card {
+  margin-top: 32px;
+}
+
+.imageWrapper {
+  width: 292px;
+  height: 320px;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  margin: 0;
+  color: #000;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
+.location.info {
+  font-size: 14px;
+  color: #6c717b;
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  align-items: center;
+}
+
+.location.info svg {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  color: #000;
+}
+
+/* Отступ между иконкой рейтинга и текстом */
+.rating svg,
+.location-text svg {
+  margin-right: 4px; /* 4px отступ между иконкой и текстом */
+  flex-shrink: 0; /* чтобы иконка не сжималась */
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #6c717b;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+
+  display: box;           
+  line-clamp: 3;         
+  box-orient: vertical;  
+
+  overflow: hidden;
+}
+
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 8px;
+  margin-top: 12px;
+  font-weight: 500;
+  font-size: 14px; 
+  text-align: center;
+}
+
+.activeFilters span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  padding: 12px;
+  height: 48px;
+  gap: 4px;
+  font-size: 14px;
+  color: #000;
+  background-color: #F2F4F7;
+}
+
+.activeFilters span svg {
+  width: 20px;
+  height: 20px;
+}
+
+.showMoreButton {
+  margin-top: 16px;
+  padding: 8px 16px;
+  width: 166px;
+  height: 56px;
+  border-radius: 200px;
+  border: 1px solid #ccc;
+  background-color: #E44848;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.showMoreButton:hover {
+  background-color: #c43737; /* чуть темнее красного вместо серого */
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.link {
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.favButton {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: none; /* рамка убрана */
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.favButton svg {
+  width: 26px;   /* новый размер */
+  height: 24px;
+  fill: #000; /* черная иконка по умолчанию */
+  transition: fill 0.2s ease;
+}
+
+.favButton.active svg {
+  fill: #E44848; /* красная иконка при активном состоянии */
+}

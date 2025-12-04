@@ -1,6 +1,7 @@
 export type CampersFilters = {
   location?: string;
   form?: string;
+  transmission?: 'automatic' | 'manual';
   AC?: boolean;
   kitchen?: boolean;
   bathroom?: boolean;
