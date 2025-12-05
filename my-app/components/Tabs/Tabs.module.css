@@ -1,20 +1,17 @@
-.tabsContainer {
-  background-color: #F2F4F7; /* серый блок */
-  border-radius: 10px;
-  padding: 24px;
-}
-
 .tabsHeader {
   display: flex;
   gap: 32px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb; 
   margin-bottom: 24px;
+  max-width: 1280px;
+  padding-bottom: 16px;
 }
 
 .tabContent {
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
+  width: 100%;
 }
 
 .tab {
@@ -49,7 +46,9 @@
   border-radius: 2px;
 }
 
-.tabContent {
-  margin-top: 16px;
-  width: 100%;
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%; /* растягиваем на всю ширину левой колонки */
 }

@@ -2,7 +2,7 @@ import { getCamperById } from "@/lib/api";
 import { Camper } from "@/types/camper";
 import Gallery from "@/components/Gallery/Gallery";
 import Form from "@/components/Form/Form";
-import CamperTabs from "@/components/Tabs/Tabs"; // клиентская вкладка
+import CamperTabsClient from "./CamperTabsClient";
 import styles from "./page.module.css";
 
 interface PageProps {
@@ -30,19 +30,27 @@ export default async function CamperPage({ params }: PageProps) {
 
   return (
     <div className={styles.container}>
+      {/* HEADER */}
       <div className={styles.header}>
         <h1 className={styles.title}>{camper.name}</h1>
 
         <div className={styles.meta}>
           <span className={styles.rating}>
-            <svg width="16" height="16" fill="#FFC107" style={{ marginRight: '4px' }}>
+            <svg width="16" height="16" fill="#FFC107" style={{ marginRight: 4 }}>
               <use href="/icons/symbol-defs.svg#icon-Property-1Pressed-star" />
             </svg>
             {camper.rating} ({camper.reviews?.length || 0} Reviews)
           </span>
 
           <span className={styles.locationText}>
-            <svg width="16" height="16" fill="none" stroke="#000" strokeWidth="2" style={{ marginRight: '4px' }}>
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="#000"
+              strokeWidth="2"
+              style={{ marginRight: 4 }}
+            >
               <use href="/icons/symbol-defs.svg#icon-Map" />
             </svg>
             {camper.location}
@@ -55,13 +63,14 @@ export default async function CamperPage({ params }: PageProps) {
       <Gallery camper={camper} />
       <p className={styles.description}>{camper.description}</p>
 
+      {/* ✅ ТЕПЕРЬ ОБА СТОЯТ В СЕТКЕ СЛЕВА/СПРАВА */}
       <div className={styles.bottom}>
-        {/* LEFT COLUMN */}
+        {/* ✅ LEFT — tabsContainer */}
         <div className={styles.left}>
-          <CamperTabs camper={camper} />
+          <CamperTabsClient camper={camper} />
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* ✅ RIGHT — форма */}
         <div className={styles.right}>
           <Form camperId={camper.id} />
         </div>
@@ -69,3 +78,5 @@ export default async function CamperPage({ params }: PageProps) {
     </div>
   );
 }
+
+
