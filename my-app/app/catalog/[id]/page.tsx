@@ -2,8 +2,7 @@ import { getCamperById } from "@/lib/api";
 import { Camper } from "@/types/camper";
 import Gallery from "@/components/Gallery/Gallery";
 import Form from "@/components/Form/Form";
-import CamperTabs from "@/components/Tabs/Tabs";
-import Details from '@/components/Details/Details';
+import CamperTabs from "@/components/Tabs/Tabs"; // клиентская вкладка
 import styles from "./page.module.css";
 
 interface PageProps {
@@ -31,7 +30,6 @@ export default async function CamperPage({ params }: PageProps) {
 
   return (
     <div className={styles.container}>
-      {/* HEADER */}
       <div className={styles.header}>
         <h1 className={styles.title}>{camper.name}</h1>
 
@@ -44,42 +42,30 @@ export default async function CamperPage({ params }: PageProps) {
           </span>
 
           <span className={styles.locationText}>
-            <svg
-              width="16"
-              height="16"
-              fill="none"
-              stroke="#000"
-              strokeWidth="2"
-              style={{ marginRight: '4px' }}
-            >
+            <svg width="16" height="16" fill="none" stroke="#000" strokeWidth="2" style={{ marginRight: '4px' }}>
               <use href="/icons/symbol-defs.svg#icon-Map" />
             </svg>
             {camper.location}
           </span>
         </div>
 
-        <div className={styles.price}>
-          €{camper.price.toFixed(2)}
-        </div>
+        <div className={styles.price}>€{camper.price.toFixed(2)}</div>
       </div>
 
       <Gallery camper={camper} />
       <p className={styles.description}>{camper.description}</p>
-      
+
       <div className={styles.bottom}>
-  {/* LEFT COLUMN */}
-  <div className={styles.left}>
-    <CamperTabs camper={camper} />
+        {/* LEFT COLUMN */}
+        <div className={styles.left}>
+          <CamperTabs camper={camper} />
+        </div>
 
-    {/* Vehicle details ВСЕГДА НИЖЕ */}
-    <Details camper={camper} />
-  </div>
-
-  {/* RIGHT COLUMN */}
-  <div className={styles.right}>
-    <Form camperId={camper.id} />
-  </div>
-</div>
+        {/* RIGHT COLUMN */}
+        <div className={styles.right}>
+          <Form camperId={camper.id} />
+        </div>
+      </div>
     </div>
   );
 }

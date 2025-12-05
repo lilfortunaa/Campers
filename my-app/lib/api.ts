@@ -7,9 +7,7 @@ const baseURL =
 
 export const api = axios.create({
   baseURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
 
 export type CampersParams = {
@@ -18,21 +16,44 @@ export type CampersParams = {
   [key: string]: string | number | boolean | undefined;
 };
 
-// ✅ СПИСОК КЕМПЕРОВ — ИСПРАВЛЕННЫЙ
+// 📌 Всегда безопасно возвращаем результат, даже если сервер вернул 404
 export const getCampers = async (
   params?: CampersParams
 ): Promise<CampersResponse> => {
-  const res = await api.get("", { params });
+  try {
+    const res = await api.get("", { params });
 
-  // ✅ ВАЖНО: бекенд возвращает ОБЪЕКТ, а не массив
-  return {
-    items: res.data.items,
-    total: res.data.total,
-  };
+    return {
+      items: res.data.items,
+      total: res.data.total,
+    };
+  } catch (error: unknown) {
+    // Ловим только ошибки Axios
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 404) {
+        // 🔹 Возвращаем пустой массив вместо 404
+        return { items: [], total: 0 };
+      } else {
+        console.error("Axios error:", error.message);
+        return { items: [], total: 0 }; // Чтобы DevTools не показывал красный экран
+      }
+    }
+
+    console.error("Unknown error:", error);
+    return { items: [], total: 0 };
+  }
 };
 
-// ✅ ОДИН КЕМПЕР
-export const getCamperById = async (id: string): Promise<Camper> => {
-  const res = await api.get(`/${id}`);
-  return res.data;
+// 📌 Получение одного кемпера по ID
+export const getCamperById = async (id: string): Promise<Camper | null> => {
+  try {
+    const res = await api.get(`/${id}`);
+    return res.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      return null;
+    }
+    console.error("Error fetching camper by ID:", error);
+    return null;
+  }
 };

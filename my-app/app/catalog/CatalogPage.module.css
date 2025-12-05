@@ -1,0 +1,43 @@
+.catalogContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.message {
+  font-size: 16px;
+  color: #555;
+  margin-top: 16px;
+}
+
+.showMoreButton {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  padding: 16px 32px;
+  width: 145px;
+  height: 56px;
+  border-radius: 200px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  transition: all 0.2s ease;
+}
+
+.showMoreButton:hover {
+    border: 1px solid #c43737;
+}
+
+.showMoreButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

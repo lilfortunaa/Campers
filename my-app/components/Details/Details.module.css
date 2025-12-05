@@ -1,5 +1,8 @@
 .details {
   display: block;
+  width: 527px;
+  height: 296px;
+  padding-top: 50px;
 }
 
 .title {
@@ -16,10 +19,14 @@
 }
 
 .item {
-  font-size: 14px;
   color: #101828;
   display: flex;
+  justify-content: space-between;
   gap: 6px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
 }
 
 .label {
@@ -27,6 +34,9 @@
 }
 
 .value {
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
   color: #475467;
 }

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useCampers } from "@/store/useCampers";
 import Card from "@/components/Card/Card";
 import FilterSidebar from "@/components/FilterSidebar/FilterSidebar";
+import styles from "./CatalogPage.module.css";
 
 export default function CatalogPage() {
   const { items, fetchInitial, loadMore, total, isLoading } = useCampers();
@@ -13,11 +14,15 @@ export default function CatalogPage() {
   }, [fetchInitial]);
 
   return (
-    <div style={{ display: "flex", gap: 24 }}>
+    <div className={styles.catalogContainer}>
       <FilterSidebar />
 
-      <div>
-        {Array.isArray(items) && items.length > 0 ? (
+      <div className={styles.itemsContainer}>
+        {isLoading && items.length === 0 && (
+          <p className={styles.message}>Loading campers...</p>
+        )}
+
+        {!isLoading && Array.isArray(items) && items.length > 0 && (
           <>
             <div>
               {items.map(camper => (
@@ -26,15 +31,23 @@ export default function CatalogPage() {
             </div>
 
             {items.length < total && (
-              <button onClick={loadMore} disabled={isLoading}>
+              <button
+                type="button"
+                className={styles.showMoreButton}
+                onClick={loadMore}
+                disabled={isLoading}
+              >
                 {isLoading ? "Loading..." : "Load More"}
               </button>
             )}
           </>
-        ) : (
-          <p>No campers found</p>
+        )}
+
+        {!isLoading && items.length === 0 && (
+          <p className={styles.message}>No campers found</p>
         )}
       </div>
     </div>
   );
 }
+

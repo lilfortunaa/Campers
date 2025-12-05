@@ -78,13 +78,6 @@ export default function Form({ camperId }: FormProps) {
             className={styles.input}
             required
           />
-          <input
-            type="date"
-            value={to}
-            onChange={e => setTo(e.target.value)}
-            className={styles.input}
-            required
-          />
         </div>
 
         <textarea
