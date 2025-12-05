@@ -1,49 +1,65 @@
 'use client';
-import { useState } from 'react';
-import axios from 'axios';
-import styles from './Form.module.css';
+
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
+import axios from "axios";
+import styles from "./Form.module.css";
 
 interface FormProps {
   camperId: string;
 }
 
 export default function Form({ camperId }: FormProps) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [from, setFrom] = useState('');
-  const [to, setTo] = useState('');
-  const [comment, setComment] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState('');
+  const validationSchema = Yup.object({
+    name: Yup.string().min(2, "Name is too short").required("Name is required"),
+    email: Yup.string().email("Invalid email address").required("Email is required"),
+    bookingDate: Yup.date().required("Booking date is required").nullable(),
+    comment: Yup.string(),
+  });
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMsg('');
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      bookingDate: null as Date | null,
+      comment: "",
+    },
+    validationSchema,
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/bookings`, {
+          camperId,
+          name: values.name,
+          email: values.email,
+          bookingDate: values.bookingDate,
+          comment: values.comment,
+        });
 
-    try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/bookings`, {
-        camperId,
-        name,
-        email,
-        from,
-        to,
-        comment,
-      });
+        iziToast.success({
+          title: "Success",
+          message: "Booking request sent!",
+          position: "topRight",
+          timeout: 3000,
+          progressBar: true,
+        });
 
-      setMsg('Booking successful!');
-      setName('');
-      setEmail('');
-      setFrom('');
-      setTo('');
-      setComment('');
-    } catch (err) {
-      console.error(err);
-      setMsg('Error booking.');
-    } finally {
-      setLoading(false);
-    }
-  };
+        resetForm();
+      } catch (err) {
+        console.error(err);
+        iziToast.error({
+          title: "Error",
+          message: "Failed to send booking.",
+          position: "topRight",
+          timeout: 3500,
+          progressBar: true,
+        });
+      }
+    },
+  });
 
   return (
     <div className={styles.formContainer}>
@@ -52,51 +68,84 @@ export default function Form({ camperId }: FormProps) {
         Stay connected! We are always ready to help you.
       </p>
 
-      <form onSubmit={submit} className={styles.form}>
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder="Name*"
-          className={styles.input}
-          required
-        />
-
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          placeholder="Email*"
-          className={styles.input}
-          required
-        />
-
-        <div className={styles.dateWrapper}>
+      <form className={styles.form} onSubmit={formik.handleSubmit}>
+        {/* Name */}
+        <div className={styles.inputWrapper}>
           <input
-            type="date"
-            value={from}
-            onChange={e => setFrom(e.target.value)}
-            className={styles.input}
-            required
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Name*"
+            className={`${styles.input} ${
+              formik.touched.name && formik.errors.name ? styles.inputError : ""
+            }`}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+          />
+          {formik.touched.name && formik.errors.name ? (
+            <div className={styles.errorText}>{formik.errors.name}</div>
+          ) : null}
+        </div>
+
+        {/* Email */}
+        <div className={styles.inputWrapper}>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email*"
+            className={`${styles.input} ${
+              formik.touched.email && formik.errors.email ? styles.inputError : ""
+            }`}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+          {formik.touched.email && formik.errors.email ? (
+            <div className={styles.errorText}>{formik.errors.email}</div>
+          ) : null}
+        </div>
+
+        {/* Booking Date */}
+        <div className={styles.inputWrapper}>
+          <DatePicker
+            selected={formik.values.bookingDate}
+            onChange={(date: Date | null) =>
+              formik.setFieldValue("bookingDate", date)
+            }
+            onBlur={formik.handleBlur}
+            placeholderText="Booking date*"
+            className={`${styles.input} ${
+              formik.touched.bookingDate && formik.errors.bookingDate
+                ? styles.inputError
+                : ""
+            }`}
+            dateFormat="yyyy-MM-dd"
+          />
+          {formik.touched.bookingDate && formik.errors.bookingDate ? (
+            <div className={styles.errorText}>{formik.errors.bookingDate}</div>
+          ) : null}
+        </div>
+
+        {/* Comment */}
+        <div className={styles.inputWrapper}>
+          <textarea
+            id="comment"
+            name="comment"
+            placeholder="Comment"
+            className={styles.textarea}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.comment}
+            rows={4}
           />
         </div>
 
-        <textarea
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-          placeholder="Comment"
-          className={styles.textarea}
-          rows={4}
-        />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className={styles.button}
-        >
-          {loading ? 'Sending...' : 'Send'}
+        {/* Submit */}
+        <button type="submit" className={styles.button}>
+          Send
         </button>
-
-        {msg && <p className={styles.message}>{msg}</p>}
       </form>
     </div>
   );

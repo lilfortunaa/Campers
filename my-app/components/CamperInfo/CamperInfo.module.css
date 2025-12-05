@@ -1,0 +1,120 @@
+/* ===== Info Section & Tabs ===== */
+.infoSection {
+    margin-top: 44px;
+    width: 100%;
+}
+
+.tabs {
+    display: flex;
+    position: relative;
+    gap: 40px;
+    border-bottom: 1px solid rgba(16, 24, 40, 0.2);
+    margin-bottom: 44px;
+}
+
+.tabButton {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #101828;
+    cursor: pointer;
+    padding: 0;
+    padding-bottom: 24px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.tabButton:not(.active) {
+    opacity: 0.8;
+}
+
+.underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: #ff6600;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.contentWrapper {
+    display: flex;
+    gap: 41px;
+}
+
+.leftColumn {
+    width: 50%;
+}
+
+.rightColumn {
+    width: 50%;
+}
+
+/* ===== Features Container ===== */
+.featuresContainer {
+    background: #f7f7f7;
+    border-radius: 10px;
+    padding: 44px 52px;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px; /* чуть меньше, чтобы не было слишком много пространства */
+}
+
+.features span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    padding: 12px;
+    height: 48px;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    background-color: #DADDE1;
+}
+
+.features svg {
+    width: 20px;
+    height: 20px;
+    color: #000;
+}
+
+/* ===== Vehicle Details ===== */
+.vehicleDetailsSection {
+    margin-top: 16px;
+}
+
+.featureTitle {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #101828;
+    border-bottom: 1px solid #10182833;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.vehicleDetailsList {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.vehicleDetailsItem {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    color: #000;
+}

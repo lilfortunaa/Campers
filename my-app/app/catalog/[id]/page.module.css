@@ -41,59 +41,27 @@
   line-height: 150%;
 }
 
-/* .bottom {
+.bottom {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 760px 420px; /* ✅ ЖЁСТКО как в макете */
   gap: 40px;
   margin-top: 40px;
-  align-items: stretch;
+  align-items: start;
 }
+
+
 
 .left {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  height: 100%; 
+  display: block;
 }
-
 
 .right {
   position: sticky;
   top: 24px;
-  height: fit-content;
-  border: 1px solid #DADDE1;
-  border-radius: 10px;
-  padding: 44px 57px ;
-  margin-top: 65px;
-} */
-
-.bottom {
-  display: flex;
-  gap: 40px;
-  align-items: stretch;       
-  justify-content: center;   
-  max-width: 1280px;          
-  margin: 40px auto 0;       
+  width: 420px;     /* ✅ ФИКС */
+  min-width: 420px;
 }
 
-
-.left {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  padding: 44px 52px;
-}
-
-.right {
-  flex: 1;
-  border: 1px solid #DADDE1;
-  border-radius: 10px;
-  padding: 44px 57px;
-  height: auto;
-  position: sticky;
-  top: 24px;
-}
 
 
 
@@ -104,4 +72,14 @@
   gap: 4px;
   font-size: 14px;
   color: #6b7280;
+}
+
+.leftCard {
+  padding: 44px 52px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.leftCard > *:first-child {
+  margin-top: 0;
 }
