@@ -45,7 +45,6 @@ export default function FilterSidebar() {
   return (
     <aside className={styles.sidebar}>
 
-      {/* LOCATION */}
       <div>
         <p className={styles.title}>Location</p>
         <div className={styles.locationInput}>
@@ -61,11 +60,9 @@ export default function FilterSidebar() {
         </div>
       </div>
 
-      {/* FILTERS */}
       <div>
         <p className={styles.title}>Filters</p>
 
-        {/* VEHICLE EQUIPMENT */}
         <p className={styles.subtitle}>Vehicle equipment</p>
 
         <div className={styles.iconGrid}>
@@ -112,7 +109,6 @@ export default function FilterSidebar() {
 
         </div>
 
-        {/* VEHICLE TYPE */}
         <p className={styles.subtitle}>Vehicle type</p>
 
         <div className={styles.iconGrid}>
@@ -144,7 +140,6 @@ export default function FilterSidebar() {
         </div>
       </div>
 
-      {/* BUTTONS */}
       <div className={styles.buttons}>
         <button onClick={applyFilters} className={styles.applyBtn}>
           Search

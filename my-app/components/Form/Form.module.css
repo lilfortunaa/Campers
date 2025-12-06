@@ -1,10 +1,13 @@
 .formContainer {
-    width: 100%;
-    border: 1px solid #10182833; /* легкий серый */
+    border: 1px solid #10182833; 
     border-radius: 10px;
     padding: 44px 57px;
     background-color: #fff;
     box-sizing: border-box;
+    display: flex;
+    justify-content:space-between;
+    flex-direction: column;
+    height: 100%;
 }
 
 .formContainer > *:first-child {
@@ -29,7 +32,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 14px; /* расстояние между полями */
+    gap: 14px; 
     width: 100%;
 }
 
@@ -73,9 +76,9 @@
     font-weight: 500;
     font-size: 16px;
     width: 160px;
-    margin-top: 10px;
+    margin-top: 30px;
     cursor: pointer;
-    align-self: center; /* центрируем кнопку, как в макете */
+    align-self: center; 
     transition: background 0.3s ease;
 }
 
@@ -101,7 +104,7 @@
     border-color: #E44848;
 }
 
-/* Floating label (опционально, если хочешь анимацию) */
+
 .floatingLabel {
     position: absolute;
     left: 18px;

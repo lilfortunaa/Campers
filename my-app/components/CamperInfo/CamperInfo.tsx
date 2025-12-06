@@ -21,7 +21,6 @@ export default function CamperInfo({ camper }: Props) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  // Анимация underline вкладок
   useLayoutEffect(() => {
     if (!tabsRef.current) return;
     const buttons = tabsRef.current.querySelectorAll<HTMLButtonElement>("button");
@@ -39,7 +38,7 @@ export default function CamperInfo({ camper }: Props) {
 
   return (
     <div className={styles.infoSection}>
-      {/* Tabs */}
+
       <div className={styles.tabs} ref={tabsRef}>
         <button
           className={`${styles.tabButton} ${activeTab === "features" ? styles.active : ""}`}
@@ -56,15 +55,15 @@ export default function CamperInfo({ camper }: Props) {
         <span className={styles.underline} style={underlineStyle} />
       </div>
 
-      {/* Content */}
+
       <div className={styles.contentWrapper}>
         <div className={styles.leftColumn}>
           {activeTab === "features" && (
             <div className={styles.featuresContainer}>
-              {/* Features (иконки и лейблы) */}
+
               <Features camper={camper} />
 
-              {/* Vehicle Details */}
+
               <div className={styles.vehicleDetailsSection}>
                 <h2 className={styles.featureTitle}>Vehicle details</h2>
                 <ul className={styles.vehicleDetailsList}>

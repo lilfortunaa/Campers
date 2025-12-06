@@ -12,7 +12,7 @@ export default function CamperTabs({ camper }: { camper: Camper }) {
 
   return (
     <div className={styles.tabsContainer}>
-      {/* TABS HEADER */}
+    
       <div className={styles.tabsHeader}>
         <button
           className={`${styles.tab} ${tab === 'features' ? styles.active : ''}`}
@@ -28,13 +28,11 @@ export default function CamperTabs({ camper }: { camper: Camper }) {
         </button>
       </div>
 
-      {/* TABS CONTENT */}
       <div className={styles.tabContent}>
         {tab === 'features' && <Features camper={camper} />}
         {tab === 'reviews' && <Reviews reviews={camper.reviews} />}
       </div>
 
-      {/* Details рендерится только на Features */}
       {tab === 'features' && <Details camper={camper} />}
     </div>
   );

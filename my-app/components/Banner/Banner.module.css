@@ -8,10 +8,10 @@
   background-position: center;
   aspect-ratio: 1440 / 696;
 
-  display: flex;           /* включаем flex для центрирования */
-  align-items: center;     /* вертикально по центру */
-  justify-content: flex-start; /* горизонтально слева */
-  padding-left: 64px;      /* смещение контента вправо от края */
+  display: flex;  
+  align-items: center;     
+  justify-content: flex-start; 
+  padding-left: 64px;     
   color: white;
   text-align: left;
 }
@@ -19,7 +19,7 @@
 .bannerOverlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* полупрозрачный оверлей */
+  background-color: rgba(0, 0, 0, 0.4); 
 }
 
 .bannerContent {

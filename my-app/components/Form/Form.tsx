@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import axios from "axios";
 import styles from "./Form.module.css";
@@ -39,24 +38,31 @@ export default function Form({ camperId }: FormProps) {
           comment: values.comment,
         });
 
-        iziToast.success({
-          title: "Success",
-          message: "Booking request sent!",
-          position: "topRight",
-          timeout: 3000,
-          progressBar: true,
-        });
+        // iziToast внутри блока, который выполняется только на клиенте
+        if (typeof window !== "undefined") {
+          const iziToast = (await import("izitoast")).default;
+          iziToast.success({
+            title: "Success",
+            message: "Booking request sent!",
+            position: "topRight",
+            timeout: 3000,
+            progressBar: true,
+          });
+        }
 
         resetForm();
       } catch (err) {
         console.error(err);
-        iziToast.error({
-          title: "Error",
-          message: "Failed to send booking.",
-          position: "topRight",
-          timeout: 3500,
-          progressBar: true,
-        });
+        if (typeof window !== "undefined") {
+          const iziToast = (await import("izitoast")).default;
+          iziToast.error({
+            title: "Error",
+            message: "Failed to send booking.",
+            position: "topRight",
+            timeout: 3500,
+            progressBar: true,
+          });
+        }
       }
     },
   });
@@ -69,66 +75,52 @@ export default function Form({ camperId }: FormProps) {
       </p>
 
       <form className={styles.form} onSubmit={formik.handleSubmit}>
-        {/* Name */}
         <div className={styles.inputWrapper}>
           <input
             id="name"
             name="name"
             type="text"
             placeholder="Name*"
-            className={`${styles.input} ${
-              formik.touched.name && formik.errors.name ? styles.inputError : ""
-            }`}
+            className={`${styles.input} ${formik.touched.name && formik.errors.name ? styles.inputError : ""}`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
           />
-          {formik.touched.name && formik.errors.name ? (
+          {formik.touched.name && formik.errors.name && (
             <div className={styles.errorText}>{formik.errors.name}</div>
-          ) : null}
+          )}
         </div>
 
-        {/* Email */}
         <div className={styles.inputWrapper}>
           <input
             id="email"
             name="email"
             type="email"
             placeholder="Email*"
-            className={`${styles.input} ${
-              formik.touched.email && formik.errors.email ? styles.inputError : ""
-            }`}
+            className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
           />
-          {formik.touched.email && formik.errors.email ? (
+          {formik.touched.email && formik.errors.email && (
             <div className={styles.errorText}>{formik.errors.email}</div>
-          ) : null}
+          )}
         </div>
 
-        {/* Booking Date */}
         <div className={styles.inputWrapper}>
           <DatePicker
             selected={formik.values.bookingDate}
-            onChange={(date: Date | null) =>
-              formik.setFieldValue("bookingDate", date)
-            }
+            onChange={(date: Date | null) => formik.setFieldValue("bookingDate", date)}
             onBlur={formik.handleBlur}
             placeholderText="Booking date*"
-            className={`${styles.input} ${
-              formik.touched.bookingDate && formik.errors.bookingDate
-                ? styles.inputError
-                : ""
-            }`}
+            className={`${styles.input} ${formik.touched.bookingDate && formik.errors.bookingDate ? styles.inputError : ""}`}
             dateFormat="yyyy-MM-dd"
           />
-          {formik.touched.bookingDate && formik.errors.bookingDate ? (
+          {formik.touched.bookingDate && formik.errors.bookingDate && (
             <div className={styles.errorText}>{formik.errors.bookingDate}</div>
-          ) : null}
+          )}
         </div>
 
-        {/* Comment */}
         <div className={styles.inputWrapper}>
           <textarea
             id="comment"
@@ -142,7 +134,6 @@ export default function Form({ camperId }: FormProps) {
           />
         </div>
 
-        {/* Submit */}
         <button type="submit" className={styles.button}>
           Send
         </button>

@@ -1,43 +1,98 @@
-.catalogContainer {
-  display: flex;
-  gap: 24px;
+
+.catalogLayout {
+    display: flex;
+    padding: 48px 64px 0;
+    gap: 64px;
 }
 
-.itemsContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.camperListMain {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
 }
 
-.message {
-  font-size: 16px;
-  color: #555;
-  margin-top: 16px;
+.camperListWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
 }
 
-.showMoreButton {
-  margin-top: 40px;
-  margin-bottom: 50px;
-  padding: 16px 32px;
-  width: 145px;
-  height: 56px;
-  border-radius: 200px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  transition: all 0.2s ease;
+.camperList {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; 
 }
 
-.showMoreButton:hover {
+.loadMoreContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loadMoreButton {
+    position: relative;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #000;
+    border-radius: 200px;
+    width: 145px;
+    height: 56px;
+    margin: 0 auto 52px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.loadMoreButton::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 200px;
+    border: 2px solid var(--color-error);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 0;
+}
+
+.loadMoreButton:hover::before,
+.loadMoreButton:focus::before {
+    opacity: 1;
     border: 1px solid #c43737;
 }
 
-.showMoreButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.centerBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 0;
+    text-align: center;
 }
+
+.noResultsText {
+    font-size: 18px;
+    color: var(--color-text-dark);
+}
+
+.resetButton {
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: 1px solid var(--color-bg-grey);
+    background: var(--background);
+    color: var(--color-text-dark);
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.resetButton:hover {
+    border-color: var(--color-accent);
+}
+
+

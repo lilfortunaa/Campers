@@ -13,41 +13,58 @@ export default function CatalogPage() {
     fetchInitial();
   }, [fetchInitial]);
 
+  const hasMore = items.length < total;
+
   return (
-    <div className={styles.catalogContainer}>
-      <FilterSidebar />
+    <section>
+      <div className={styles.catalogLayout}>
+        <FilterSidebar />
 
-      <div className={styles.itemsContainer}>
-        {isLoading && items.length === 0 && (
-          <p className={styles.message}>Loading campers...</p>
-        )}
-
-        {!isLoading && Array.isArray(items) && items.length > 0 && (
-          <>
-            <div>
-              {items.map(camper => (
-                <Card key={camper.id} camper={camper} />
-              ))}
-            </div>
-
-            {items.length < total && (
-              <button
-                type="button"
-                className={styles.showMoreButton}
-                onClick={loadMore}
-                disabled={isLoading}
-              >
-                {isLoading ? "Loading..." : "Load More"}
-              </button>
+        <main className={styles.camperListMain}>
+          <div className={styles.camperListWrapper}>
+            {isLoading && items.length === 0 && (
+              <p className={styles.noResultsText}>Loading campers...</p>
             )}
-          </>
-        )}
 
-        {!isLoading && items.length === 0 && (
-          <p className={styles.message}>No campers found</p>
-        )}
+            {!isLoading && Array.isArray(items) && items.length > 0 && (
+              <>
+  
+                <div className={styles.camperList}>
+                  {items.map((camper) => (
+                    <Card key={camper.id} camper={camper} />
+                  ))}
+                </div>
+
+                {hasMore && (
+                  <div className={styles.loadMoreContainer}>
+                    <button
+                      type="button"
+                      className={styles.loadMoreButton}
+                      onClick={loadMore}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Loading..." : "Load More"}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+
+            {!isLoading && items.length === 0 && (
+              <div className={styles.centerBox}>
+                <p className={styles.noResultsText}>No campers found</p>
+                <button
+                  className={styles.resetButton}
+                  onClick={() => window.location.reload()}
+                >
+                  Reset filters
+                </button>
+              </div>
+            )}
+          </div>
+        </main>
       </div>
-    </div>
+    </section>
   );
 }
 

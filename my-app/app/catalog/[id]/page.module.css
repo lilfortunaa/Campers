@@ -43,7 +43,7 @@
 
 .bottom {
   display: grid;
-  grid-template-columns: 760px 420px; /* ✅ ЖЁСТКО как в макете */
+  grid-template-columns: 760px 420px; 
   gap: 40px;
   margin-top: 40px;
   align-items: start;
@@ -58,7 +58,7 @@
 .right {
   position: sticky;
   top: 24px;
-  width: 420px;     /* ✅ ФИКС */
+  width: 420px;  
   min-width: 420px;
 }
 

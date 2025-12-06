@@ -1,4 +1,4 @@
-/* ===== Info Section & Tabs ===== */
+
 .infoSection {
     margin-top: 44px;
     width: 100%;
@@ -44,17 +44,15 @@
 .contentWrapper {
     display: flex;
     gap: 41px;
+    align-items: stretch;
 }
 
-.leftColumn {
+.leftColumn, .rightColumn {
     width: 50%;
+    display: flex;
+    flex-direction: column;
 }
 
-.rightColumn {
-    width: 50%;
-}
-
-/* ===== Features Container ===== */
 .featuresContainer {
     background: #f7f7f7;
     border-radius: 10px;
@@ -65,7 +63,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 32px; /* чуть меньше, чтобы не было слишком много пространства */
+    margin-bottom: 32px; 
 }
 
 .features span {
@@ -88,7 +86,7 @@
     color: #000;
 }
 
-/* ===== Vehicle Details ===== */
+
 .vehicleDetailsSection {
     margin-top: 16px;
 }

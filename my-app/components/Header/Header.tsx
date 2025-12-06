@@ -14,7 +14,6 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      {/* Логотип через спрайт */}
       <div className={styles.logo}>
         <Link href="/">
           <svg className={styles.logoSvg} width="136" height="15">
@@ -22,8 +21,6 @@ export default function Header() {
           </svg>
         </Link>
       </div>
-
-      {/* Навигация */}
       <nav className={styles.nav}>
         {navItems.map((item) => (
           <Link
@@ -37,9 +34,8 @@ export default function Header() {
           </Link>
         ))}
       </nav>
-
-      {/* Пустой блок справа для симметрии */}
       <div style={{ width: '80px' }}></div>
     </header>
   );
 }
+

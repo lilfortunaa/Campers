@@ -16,7 +16,7 @@ export type CampersParams = {
   [key: string]: string | number | boolean | undefined;
 };
 
-// 📌 Всегда безопасно возвращаем результат, даже если сервер вернул 404
+
 export const getCampers = async (
   params?: CampersParams
 ): Promise<CampersResponse> => {
@@ -28,14 +28,14 @@ export const getCampers = async (
       total: res.data.total,
     };
   } catch (error: unknown) {
-    // Ловим только ошибки Axios
+  
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 404) {
-        // 🔹 Возвращаем пустой массив вместо 404
+
         return { items: [], total: 0 };
       } else {
         console.error("Axios error:", error.message);
-        return { items: [], total: 0 }; // Чтобы DevTools не показывал красный экран
+        return { items: [], total: 0 };
       }
     }
 
@@ -44,7 +44,7 @@ export const getCampers = async (
   }
 };
 
-// 📌 Получение одного кемпера по ID
+
 export const getCamperById = async (id: string): Promise<Camper | null> => {
   try {
     const res = await api.get(`/${id}`);
@@ -57,3 +57,4 @@ export const getCamperById = async (id: string): Promise<Camper | null> => {
     return null;
   }
 };
+
