@@ -63,4 +63,5 @@ export default async function CamperPage({ params }: PageProps) {
       <CamperInfo camper={camper} />
     </div>
   );
+  
 }
