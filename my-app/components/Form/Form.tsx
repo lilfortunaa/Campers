@@ -7,7 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import "izitoast/dist/css/iziToast.min.css";
 import styles from "./Form.module.css";
 
-export default function Form() {
+
+interface FormProps {
+  camperId: string;
+}
+
+export default function Form({ camperId }: FormProps) {
   const validationSchema = Yup.object({
     name: Yup.string()
       .min(2, "Name is too short")
@@ -31,12 +36,11 @@ export default function Form() {
     },
     validationSchema,
     onSubmit: async (_, { resetForm }) => {
-      // UI-only "submit"
       try {
         const iziToast = (await import("izitoast")).default;
         iziToast.success({
           title: "Success",
-          message: "Booking request sent!",
+          message: `Booking request for camper ${camperId} sent!`,
           position: "topRight",
           timeout: 3000,
           progressBar: true,
@@ -47,7 +51,7 @@ export default function Form() {
         const iziToast = (await import("izitoast")).default;
         iziToast.error({
           title: "Error",
-          message: "Failed to send booking.",
+          message: `Failed to send booking for camper ${camperId}.`,
           position: "topRight",
           timeout: 3500,
           progressBar: true,
@@ -71,9 +75,7 @@ export default function Form() {
             type="text"
             placeholder="Name*"
             className={`${styles.input} ${
-              formik.touched.name && formik.errors.name
-                ? styles.inputError
-                : ""
+              formik.touched.name && formik.errors.name ? styles.inputError : ""
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

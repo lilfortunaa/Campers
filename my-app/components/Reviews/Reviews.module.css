@@ -33,7 +33,7 @@
 
 .userInfo {
   display: flex;
-  flex-direction: column; /* имя сверху, звёзды снизу */
+  flex-direction: column; 
 }
 
 .name {
@@ -46,7 +46,7 @@
 .stars {
   display: flex;
   gap: 0.25rem;
-  margin-top: 0.25rem; /* чуть ниже имени */
+  margin-top: 0.25rem; 
 }
 
 .star {
