@@ -1,22 +1,24 @@
-'use client';
+"use client";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "izitoast/dist/css/iziToast.min.css";
-import axios from "axios";
 import styles from "./Form.module.css";
 
-interface FormProps {
-  camperId: string;
-}
-
-export default function Form({ camperId }: FormProps) {
+export default function Form() {
   const validationSchema = Yup.object({
-    name: Yup.string().min(2, "Name is too short").required("Name is required"),
-    email: Yup.string().email("Invalid email address").required("Email is required"),
-    bookingDate: Yup.date().required("Booking date is required").nullable(),
+    name: Yup.string()
+      .min(2, "Name is too short")
+      .required("Name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    bookingDate: Yup.date()
+      .nullable()
+      .typeError("Select a valid date")
+      .required("Booking date is required"),
     comment: Yup.string(),
   });
 
@@ -28,41 +30,28 @@ export default function Form({ camperId }: FormProps) {
       comment: "",
     },
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (_, { resetForm }) => {
+      // UI-only "submit"
       try {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/bookings`, {
-          camperId,
-          name: values.name,
-          email: values.email,
-          bookingDate: values.bookingDate,
-          comment: values.comment,
+        const iziToast = (await import("izitoast")).default;
+        iziToast.success({
+          title: "Success",
+          message: "Booking request sent!",
+          position: "topRight",
+          timeout: 3000,
+          progressBar: true,
         });
 
-        // iziToast внутри блока, который выполняется только на клиенте
-        if (typeof window !== "undefined") {
-          const iziToast = (await import("izitoast")).default;
-          iziToast.success({
-            title: "Success",
-            message: "Booking request sent!",
-            position: "topRight",
-            timeout: 3000,
-            progressBar: true,
-          });
-        }
-
         resetForm();
-      } catch (err) {
-        console.error(err);
-        if (typeof window !== "undefined") {
-          const iziToast = (await import("izitoast")).default;
-          iziToast.error({
-            title: "Error",
-            message: "Failed to send booking.",
-            position: "topRight",
-            timeout: 3500,
-            progressBar: true,
-          });
-        }
+      } catch {
+        const iziToast = (await import("izitoast")).default;
+        iziToast.error({
+          title: "Error",
+          message: "Failed to send booking.",
+          position: "topRight",
+          timeout: 3500,
+          progressBar: true,
+        });
       }
     },
   });
@@ -81,7 +70,11 @@ export default function Form({ camperId }: FormProps) {
             name="name"
             type="text"
             placeholder="Name*"
-            className={`${styles.input} ${formik.touched.name && formik.errors.name ? styles.inputError : ""}`}
+            className={`${styles.input} ${
+              formik.touched.name && formik.errors.name
+                ? styles.inputError
+                : ""
+            }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
@@ -97,7 +90,11 @@ export default function Form({ camperId }: FormProps) {
             name="email"
             type="email"
             placeholder="Email*"
-            className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
+            className={`${styles.input} ${
+              formik.touched.email && formik.errors.email
+                ? styles.inputError
+                : ""
+            }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
@@ -110,14 +107,20 @@ export default function Form({ camperId }: FormProps) {
         <div className={styles.inputWrapper}>
           <DatePicker
             selected={formik.values.bookingDate}
-            onChange={(date: Date | null) => formik.setFieldValue("bookingDate", date)}
-            onBlur={formik.handleBlur}
+            onChange={(date) => formik.setFieldValue("bookingDate", date)}
+            onBlur={() => formik.setFieldTouched("bookingDate", true)}
             placeholderText="Booking date*"
-            className={`${styles.input} ${formik.touched.bookingDate && formik.errors.bookingDate ? styles.inputError : ""}`}
+            className={`${styles.input} ${
+              formik.touched.bookingDate && formik.errors.bookingDate
+                ? styles.inputError
+                : ""
+            }`}
             dateFormat="yyyy-MM-dd"
           />
           {formik.touched.bookingDate && formik.errors.bookingDate && (
-            <div className={styles.errorText}>{formik.errors.bookingDate}</div>
+            <div className={styles.errorText}>
+              {formik.errors.bookingDate}
+            </div>
           )}
         </div>
 
