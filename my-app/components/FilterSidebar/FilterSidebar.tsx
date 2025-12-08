@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useCampers } from '@/store/useCampers';
 import { CampersFilters } from '@/types/filters';
 import styles from './FilterSidebar.module.css';
@@ -9,36 +8,63 @@ import styles from './FilterSidebar.module.css';
 export default function FilterSidebar() {
   const { setFilters } = useCampers();
 
-  const [location, setLocation] = useState('');
-  const [form, setForm] = useState('');
-  const [AC, setAC] = useState(false);
-  const [automatic, setAutomatic] = useState(false);
-  const [kitchen, setKitchen] = useState(false);
-  const [bathroom, setBathroom] = useState(false);
-  const [TV, setTV] = useState(false);
+  const [localFilters, setLocalFilters] = useState({
+    location: '',
+    form: '',
+    AC: false,
+    automatic: false,
+    kitchen: false,
+    bathroom: false,
+    TV: false,
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === 'checkbox') {
+      setLocalFilters((prev) => ({
+        ...prev,
+        [name]: checked,
+      }));
+    } else {
+      setLocalFilters((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleRadioClick = (value: string) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      form: prev.form === value ? '' : value,
+    }));
+  };
 
   const applyFilters = async () => {
     const filters: CampersFilters = {};
 
-    if (location) filters.location = location;
-    if (form) filters.form = form;
-    if (AC) filters.AC = true;
-    if (kitchen) filters.kitchen = true;
-    if (bathroom) filters.bathroom = true;
-    if (TV) filters.TV = true;
-    if (automatic) filters.transmission = 'automatic';
+    if (localFilters.location) filters.location = localFilters.location;
+    if (localFilters.form) filters.form = localFilters.form;
+    if (localFilters.AC) filters.AC = true;
+    if (localFilters.kitchen) filters.kitchen = true;
+    if (localFilters.bathroom) filters.bathroom = true;
+    if (localFilters.TV) filters.TV = true;
+    if (localFilters.automatic) filters.transmission = 'automatic';
 
     await setFilters(filters);
   };
 
   const resetFilters = async () => {
-    setLocation('');
-    setForm('');
-    setAC(false);
-    setAutomatic(false);
-    setKitchen(false);
-    setBathroom(false);
-    setTV(false);
+    setLocalFilters({
+      location: '',
+      form: '',
+      AC: false,
+      automatic: false,
+      kitchen: false,
+      bathroom: false,
+      TV: false,
+    });
     await setFilters({});
   };
 
@@ -52,8 +78,10 @@ export default function FilterSidebar() {
             <use href="/icons/symbol-defs.svg#icon-Map" />
           </svg>
           <input
-            value={location}
-            onChange={e => setLocation(e.target.value)}
+            type="text"
+            name="location"
+            value={localFilters.location}
+            onChange={handleChange}
             className={styles.input}
             placeholder="Kyiv, Ukraine"
           />
@@ -66,77 +94,41 @@ export default function FilterSidebar() {
         <p className={styles.subtitle}>Vehicle equipment</p>
 
         <div className={styles.iconGrid}>
-
-          <button
-            className={`${styles.iconBtn} ${AC ? styles.active : ''}`}
-            onClick={() => setAC(prev => !prev)}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-wind" /></svg>
-            <span>AC</span>
-          </button>
-
-          <button
-            className={`${styles.iconBtn} ${automatic ? styles.active : ''}`}
-            onClick={() => setAutomatic(prev => !prev)}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-diagram" /></svg>
-            <span>Automatic</span>
-          </button>
-
-          <button
-            className={`${styles.iconBtn} ${kitchen ? styles.active : ''}`}
-            onClick={() => setKitchen(prev => !prev)}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-cup-hot" /></svg>
-            <span>Kitchen</span>
-          </button>
-
-          <button
-            className={`${styles.iconBtn} ${TV ? styles.active : ''}`}
-            onClick={() => setTV(prev => !prev)}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-tv" /></svg>
-            <span>TV</span>
-          </button>
-
-          <button
-            className={`${styles.iconBtn} ${bathroom ? styles.active : ''}`}
-            onClick={() => setBathroom(prev => !prev)}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-ph_shower" /></svg>
-            <span>Bathroom</span>
-          </button>
-
+          {['AC', 'automatic', 'kitchen', 'TV', 'bathroom'].map((key) => (
+            <button
+              key={key}
+              className={`${styles.iconBtn} ${localFilters[key as keyof typeof localFilters] ? styles.active : ''}`}
+              onClick={() =>
+                key === 'automatic'
+                  ? setLocalFilters((prev) => ({ ...prev, automatic: !prev.automatic }))
+                  : setLocalFilters((prev) => ({ ...prev, [key]: !prev[key as keyof typeof prev] }))
+              }
+            >
+              <svg>
+                <use href={`/icons/symbol-defs.svg#icon-${key === 'automatic' ? 'diagram' : key === 'AC' ? 'wind' : key === 'kitchen' ? 'cup-hot' : key === 'TV' ? 'tv' : 'ph_shower'}`} />
+              </svg>
+              <span>{key === 'AC' ? 'AC' : key.charAt(0).toUpperCase() + key.slice(1)}</span>
+            </button>
+          ))}
         </div>
 
         <p className={styles.subtitle}>Vehicle type</p>
 
         <div className={styles.iconGrid}>
-
-          <button
-            className={`${styles.iconBtn} ${form === 'panelTruck' ? styles.active : ''}`}
-            onClick={() => setForm('panelTruck')}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-bi_grid-1x2" /></svg>
-            <span>Van</span>
-          </button>
-
-          <button
-            className={`${styles.iconBtn} ${form === 'fullyIntegrated' ? styles.active : ''}`}
-            onClick={() => setForm('fullyIntegrated')}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-bi_grid" /></svg>
-            <span>Fully Integrated</span>
-          </button>
-
-          <button
-            className={`${styles.iconBtn} ${form === 'alcove' ? styles.active : ''}`}
-            onClick={() => setForm('alcove')}
-          >
-            <svg><use href="/icons/symbol-defs.svg#icon-bi_grid-3x3-gap" /></svg>
-            <span>Alcove</span>
-          </button>
-
+          {[
+            { value: 'panelTruck', label: 'Van', icon: 'bi_grid-1x2' },
+            { value: 'fullyIntegrated', label: 'Fully Integrated', icon: 'bi_grid' },
+            { value: 'alcove', label: 'Alcove', icon: 'bi_grid-3x3-gap' },
+          ].map(({ value, label, icon }) => (
+            <button
+              key={value}
+              className={`${styles.iconBtn} ${localFilters.form === value ? styles.active : ''}`}
+              onClick={() => handleRadioClick(value)}
+            >
+              <svg><use href={`/icons/symbol-defs.svg#icon-${icon}`} /></svg>
+              <span>{label}</span>
+            </button>
+          ))}
         </div>
       </div>
 

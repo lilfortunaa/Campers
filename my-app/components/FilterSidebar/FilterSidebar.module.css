@@ -1,9 +1,13 @@
+
 .sidebar {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding: 16px;
   background-color: #fff;
+  box-sizing: border-box;
+
 }
 
 
@@ -29,10 +33,18 @@
   align-items: center;
   gap: 8px;
   border: 1px solid #ccc;
-  padding: 16px 214px 16px 20px;
-  width: 360px;
+  padding: 0 16px;
+  height: 48px;
   border-radius: 12px;
   background-color: #F7F7F7;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.locationInput:focus-within {
+  border-color: #D84343;
+  box-shadow: 0 0 0 2px rgba(216, 67, 67, 0.2);
 }
 
 .icon {
@@ -44,18 +56,21 @@
 .input {
   border: none;
   outline: none;
-  width: 100%;
+  flex: 1;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-  background-color: #F7F7F7;
+  background-color: transparent;
+  color: #101828;
 }
 
+
 .iconGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .iconBtn {
@@ -65,15 +80,14 @@
   justify-content: center;
   gap: 8px;
 
-  padding: 16px 40px;
-  width: 112px;
+  padding: 16px 0;
+  width: calc(33.333% - 6.66px);
   height: 96px;
   border: 1px solid #ccc;
   border-radius: 12px;
   background-color: #fff;
   color: #000;
   cursor: pointer;
-
   font-size: 12px;
   transition: all 0.2s ease;
 }
@@ -88,25 +102,30 @@
   font-size: 12px;
 }
 
-
 .iconBtn.active {
   border-color: #D84343;
 }
+
 
 .buttons {
   display: flex;
   gap: 8px;
 }
 
-.applyBtn {
+.applyBtn,
+.resetBtn {
   flex: 1;
   height: 56px;
   border-radius: 200px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.applyBtn {
   background-color: #E44848;
-  color: white;
+  color: #fff;
 }
 
 .applyBtn:hover {
@@ -114,19 +133,44 @@
 }
 
 .resetBtn {
-  flex: 1;
-  height: 56px;
-  border-radius: 200px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
   background-color: #E44848;
-  color: white;
+  color: #fff;
 }
 
 .resetBtn:hover {
   background-color: #9ca3af;
 }
 
+@media (max-width: 480px) {
+  .locationInput {
+    padding: 0 12px;
+  }
 
- 
+  .iconBtn {
+    width: 48%;
+    margin-bottom: 8px;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .iconBtn {
+    width: calc(33.333% - 10px);
+  }
+}
+
+
+@media screen and (min-width: 1440px) {
+  .sidebar {
+    width: 360px;
+    flex-shrink: 0;
+  }
+
+  .iconBtn {
+    width: 112px;
+  }
+
+  .buttons {
+    gap: 12px;
+  }
+}

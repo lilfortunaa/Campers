@@ -1,4 +1,3 @@
-
 .infoSection {
     margin-top: 44px;
     width: 100%;
@@ -43,27 +42,30 @@
 
 .contentWrapper {
     display: flex;
-    gap: 41px;
+    flex-direction: column; 
+    gap: 32px;
     align-items: stretch;
 }
 
-.leftColumn, .rightColumn {
-    width: 50%;
+.leftColumn,
+.rightColumn {
+    width: 100%; 
     display: flex;
     flex-direction: column;
 }
 
+
 .featuresContainer {
     background: #f7f7f7;
     border-radius: 10px;
-    padding: 44px 52px;
+    padding: 24px;
 }
 
 .features {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 32px; 
+    margin-bottom: 32px;
 }
 
 .features span {
@@ -85,7 +87,6 @@
     height: 20px;
     color: #000;
 }
-
 
 .vehicleDetailsSection {
     margin-top: 16px;
@@ -115,4 +116,32 @@
     line-height: 1.5;
     text-align: center;
     color: #000;
+}
+
+
+@media screen and (min-width: 768px) {
+    .contentWrapper {
+        flex-direction: column; 
+        gap: 32px;
+    }
+
+    .leftColumn,
+    .rightColumn {
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-width: 1440px) {
+    .contentWrapper {
+        flex-direction: row;
+        gap: 41px;
+    
+    }
+
+    .leftColumn,
+    .rightColumn {
+        width: 50%;
+        flex-direction: column;
+    }
 }

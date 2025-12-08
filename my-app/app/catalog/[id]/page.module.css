@@ -1,85 +1,87 @@
+
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 32px 24px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: clamp(16px, 4vw, 64px);
+    box-sizing: border-box;
 }
 
 .header {
-  margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 2vw, 16px);
+    margin-bottom: clamp(24px, 3vw, 40px);
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 133%;
-  margin-bottom: 8px;
-  color: #000;
+    font-weight: 600;
+    font-size: clamp(20px, 4vw, 48px);
+    line-height: 1.2;
+    margin: 0;
+    word-wrap: break-word;
+    color: #000;
 }
 
 .meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  color: #6b7280;
-  font-size: 14px;
-  margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(8px, 2vw, 16px);
+    font-size: clamp(12px, 2vw, 16px);
+    color: #6b7280;
+    
 }
-
-.price {
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 133%;
-  color: #000;
-}
-
-.description {
-  margin: 28px 0 60px;
-  color: #475467;
-  max-width: 900px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-}
-
-.bottom {
-  display: grid;
-  grid-template-columns: 760px 420px; 
-  gap: 40px;
-  margin-top: 40px;
-  align-items: start;
-}
-
-
-
-.left {
-  display: block;
-}
-
-.right {
-  position: sticky;
-  top: 24px;
-  width: 420px;  
-  min-width: 420px;
-}
-
-
-
 
 .rating,
 .locationText {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 14px;
-  color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.leftCard {
-  padding: 44px 52px;
-  border-radius: 10px;
-  box-sizing: border-box;
+.price {
+    font-weight: 600;
+    font-size: clamp(20px, 3vw, 28px);
+    color: #000;
 }
 
-.leftCard > *:first-child {
-  margin-top: 0;
+.description {
+    font-weight: 400;
+    font-size: clamp(14px, 2.5vw, 18px);
+    line-height: 1.5;
+    color: #475467;
+    margin-top: clamp(20px, 4vw, 28px);
+    max-width: 900px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .title {
+        font-size: clamp(24px, 6vw, 32px);
+    }
+
+    .meta {
+        gap: 8px;
+    }
+
+    .price {
+        font-size: clamp(18px, 5vw, 24px);
+    }
+
+    .description {
+        max-width: 100%;
+        font-size: clamp(14px, 4vw, 16px);
+    }
+}
+
+
+@media (min-width: 1440px) {
+    .container {
+        padding: 48px 64px 80px 64px;
+    }
 }

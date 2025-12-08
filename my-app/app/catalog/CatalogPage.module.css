@@ -1,98 +1,135 @@
 
 .catalogLayout {
-    display: flex;
-    padding: 48px 64px 0;
-    gap: 64px;
+  display: flex;
+  gap: clamp(16px, 4vw, 64px);
+  padding: clamp(16px, 4vw, 48px) clamp(16px, 4vw, 64px) 0;
 }
 
+
 .camperListMain {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap; 
+  gap: clamp(16px, 4vw, 64px);
+  width: 100%;
 }
 
 .camperListWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 40px; 
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 4vw, 40px);
+  flex: 1;
 }
 
 .camperList {
-    display: flex;
-    flex-direction: column;
-    gap: 32px; 
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vw, 32px);
 }
 
 .loadMoreContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .loadMoreButton {
-    position: relative;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: -0.01em;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #000;
-    border-radius: 200px;
-    width: 145px;
-    height: 56px;
-    margin: 0 auto 52px;
-    cursor: pointer;
-    overflow: hidden;
-    z-index: 1;
+  position: relative;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  border-radius: 200px;
+  width: clamp(120px, 20vw, 145px);
+  height: clamp(48px, 5vw, 56px);
+  margin: 0 auto clamp(32px, 5vw, 52px);
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .loadMoreButton::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 200px;
-    border: 2px solid var(--color-error);
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    z-index: 0;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 200px;
+  border: 2px solid var(--color-error);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 0;
 }
 
 .loadMoreButton:hover::before,
 .loadMoreButton:focus::before {
-    opacity: 1;
-    border: 1px solid #c43737;
+  opacity: 1;
+  border: 1px solid #c43737;
 }
 
+
 .centerBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 40px 0;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 0;
+  text-align: center;
 }
 
 .noResultsText {
-    font-size: 18px;
-    color: var(--color-text-dark);
+  font-size: 18px;
+  color: var(--color-text-dark);
 }
 
 .resetButton {
-    padding: 12px 24px;
-    border-radius: 100px;
-    border: 1px solid var(--color-bg-grey);
-    background: var(--background);
-    color: var(--color-text-dark);
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.2s;
+  padding: 12px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--color-bg-grey);
+  background: var(--background);
+  color: var(--color-text-dark);
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
 .resetButton:hover {
-    border-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 
+@media (max-width: 768px) {
+  .catalogLayout {
+    flex-direction: column;
+    padding: 16px;
+    gap: 32px;
+  }
+
+  .camperListMain {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .loadMoreButton {
+    width: 100%;
+    max-width: 200px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .catalogLayout {
+    padding: 48px 64px 0;
+    gap: 64px;
+  }
+
+  .loadMoreButton {
+    width: 145px;
+    height: 56px;
+    margin-bottom: 52px;
+  }
+}

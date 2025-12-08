@@ -1,10 +1,20 @@
+
 .header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center; 
   align-items: center;
-  padding: 24px 64px;
+  padding: 28px 64px;
   border-bottom: 1px solid #e5e7eb;
   background-color: #e5e7eb;
+  z-index: 10;
+}
+
+.logo {
+  position: absolute;
+  left: 64px; 
+  display: flex;
+  align-items: center;
 }
 
 .logoSvg {
@@ -17,7 +27,6 @@
 .nav {
   display: flex;
   gap: 32px;
-  margin: 0 auto;
 }
 
 .navLink {
@@ -26,6 +35,7 @@
   line-height: 150%;
   text-align: center;
   color: #000;
+  transition: color 0.2s ease;
 }
 
 .navLink.active {
@@ -34,4 +44,103 @@
 
 .navLink:hover {
   color: #D84343;
+}
+
+
+.burger {
+  position: absolute;
+  right: 64px; 
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.burger span {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  border-radius: 2px;
+}
+
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.mobileMenu .navLink {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.mobileMenu .navLink.active {
+  color: #E44848;
+}
+
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 24px 32px;
+  }
+
+  .logo {
+    left: 32px;
+  }
+
+  .burger {
+    right: 32px;
+  }
+
+  .logoSvg {
+    width: 120px;
+  }
+
+  .nav {
+    gap: 24px;
+  }
+
+  .navLink {
+    font-size: 15px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .header {
+    padding: 30px 32px;
+  }
+
+  .logoSvg {
+    width: 110px;
+  }
+
+
+  .nav {
+    display: none;
+  }
+
+
+  .burger {
+    display: flex;
+  }
 }
